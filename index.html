@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>词汇刷题程序 - 网页版</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- 主菜单 -->
+        <div id="main-menu" class="screen active">
+            <div class="header">
+                <h1>📚 词汇刷题程序</h1>
+                <p>网页版 - 随时随地练习词汇</p>
+            </div>
+
+            <div class="menu-section">
+                <h2>选择练习单元</h2>
+                <div id="unit-buttons" class="button-grid">
+                    <!-- 单元按钮将通过JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h2>其他练习模式</h2>
+                <button class="btn btn-primary btn-large" onclick="startMixedQuiz()">
+                    🔀 乱序练习（所有单元混合）
+                </button>
+                <button class="btn btn-secondary btn-large" onclick="showStatistics()">
+                    📊 成绩统计
+                </button>
+            </div>
+        </div>
+
+        <!-- 答题界面 -->
+        <div id="quiz-screen" class="screen">
+            <div class="quiz-header">
+                <div class="progress-info">
+                    <span id="progress-text">第 1/10 题</span>
+                    <span id="unit-name">Unit 1</span>
+                </div>
+                <div class="score-info">
+                    得分: <span id="score">0</span>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="card-section">
+                    <h3>原文</h3>
+                    <div class="text-content" id="original-text">
+                        <!-- 原文内容 -->
+                    </div>
+                </div>
+
+                <div class="card-section">
+                    <h3>请选择正确的词填入空白处</h3>
+                    <div id="options-container" class="options-grid">
+                        <!-- 选项按钮 -->
+                    </div>
+                </div>
+
+                <div class="quiz-actions">
+                    <button class="btn btn-secondary" onclick="backToMenu()">
+                        ← 返回主菜单
+                    </button>
+                    <button class="btn btn-primary" id="submit-btn" onclick="submitAnswer()" disabled>
+                        提交答案
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 结果界面 -->
+        <div id="result-screen" class="screen">
+            <div class="result-header">
+                <div id="result-icon">✅</div>
+                <h2 id="result-title">回答正确！</h2>
+            </div>
+
+            <div class="result-details">
+                <div class="detail-item">
+                    <label>你的选择:</label>
+                    <span id="user-answer" class="answer-text"></span>
+                </div>
+                <div class="detail-item">
+                    <label>正确答案:</label>
+                    <span id="correct-answer" class="answer-text correct"></span>
+                </div>
+
+                <div class="text-section">
+                    <h4>完整原文:</h4>
+                    <div class="text-content" id="full-text"></div>
+                </div>
+
+                <div class="text-section">
+                    <h4>译文:</h4>
+                    <div class="text-content" id="translation-text"></div>
+                </div>
+            </div>
+
+            <div class="result-actions">
+                <button class="btn btn-secondary" onclick="backToMenu()">
+                    🏠 返回主菜单
+                </button>
+                <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()">
+                    下一题 →
+                </button>
+            </div>
+        </div>
+
+        <!-- 最终结果界面 -->
+        <div id="final-result-screen" class="screen">
+            <div class="final-result">
+                <h1>🎉 练习完成！</h1>
+
+                <div class="stats-card">
+                    <h3>成绩统计</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <label>单元:</label>
+                            <span id="final-unit"></span>
+                        </div>
+                        <div class="stat-item">
+                            <label>总题数:</label>
+                            <span id="final-total"></span>
+                        </div>
+                        <div class="stat-item">
+                            <label>正确题数:</label>
+                            <span id="final-correct"></span>
+                        </div>
+                        <div class="stat-item">
+                            <label>准确率:</label>
+                            <span id="final-accuracy"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="final-comment" class="comment">
+                    <!-- 评价内容 -->
+                </div>
+
+                <div class="final-actions">
+                    <button class="btn btn-primary" onclick="restartQuiz()">
+                        🔄 重新练习
+                    </button>
+                    <button class="btn btn-secondary" onclick="backToMenu()">
+                        🏠 返回主菜单
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 统计界面 -->
+        <div id="stats-screen" class="screen">
+            <div class="stats-container">
+                <h2>📊 成绩统计</h2>
+                <div id="stats-content">
+                    <p>尚未完成任何题目</p>
+                </div>
+                <button class="btn btn-secondary" onclick="backToMenu()">
+                    返回主菜单
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
